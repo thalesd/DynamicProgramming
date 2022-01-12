@@ -1,6 +1,7 @@
 const {performance} = require('perf_hooks');
 
 const allConstruct = (target, wordBank, memo = {}) => {
+    if(target in memo) return memo[target];
     if(target === "") return [[]];
 
     let result = [];
@@ -17,40 +18,42 @@ const allConstruct = (target, wordBank, memo = {}) => {
         }
     }
 
+    memo[target] = result;
+
     return result;
 }
 
 var startTime = performance.now();
-console.log(allConstruct('', [])); //0
+console.log(allConstruct('', [])); 
 var endTime = performance.now();
 console.log(`Call to canConstruct took ${endTime - startTime} milliseconds`);
 
 var startTime = performance.now();
-console.log(allConstruct('purple', ['purp', 'p', 'ur', 'le', 'purpl'])); //2
+console.log(allConstruct('purple', ['purp', 'p', 'ur', 'le', 'purpl']));
 var endTime = performance.now();
 console.log(`Call to canConstruct took ${endTime - startTime} milliseconds`);
 
 startTime = performance.now();
-console.log(allConstruct('abcdef', ['ab', 'abc', 'cd', 'def', 'abcd'])); //1
+console.log(allConstruct('abcdef', ['ab', 'abc', 'cd', 'def', 'abcd']));
 endTime = performance.now();
 console.log(`Call to canConstruct took ${endTime - startTime} milliseconds`);
 
 startTime = performance.now();
-console.log(allConstruct('skateboard', ['bo', 'rd', 'ate', 't', 'ska', 'sk', 'boar'])); //0
+console.log(allConstruct('skateboard', ['bo', 'rd', 'ate', 't', 'ska', 'sk', 'boar']));
 endTime = performance.now();
 console.log(`Call to canConstruct took ${endTime - startTime} milliseconds`);
 
 startTime = performance.now();
-console.log(allConstruct('enterapotentpot', ['a', 'p', 'ent', 'enter', 'ot', 'o', 't'])); //4
+console.log(allConstruct('enterapotentpot', ['a', 'p', 'ent', 'enter', 'ot', 'o', 't']));
 endTime = performance.now();
 console.log(`Call to canConstruct took ${endTime - startTime} milliseconds`);
 
 startTime = performance.now();
-console.log(allConstruct('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef', ['e', 'ee', 'eeeee', 'eeeeeeeeeeeeeeeeee', 'eeeeeeeeeeeeeeeee', 'f'])); // ?
+console.log(allConstruct('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef', ['e', 'eef', 'eeeeeeeeeeeeeeeeeeef', 'eeeeeeeeeeeeeeeeef', 'f']));
 endTime = performance.now();
 console.log(`Call to canConstruct took ${endTime - startTime} milliseconds`);
 
 startTime = performance.now();
-console.log(allConstruct('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef', ['e', 'ee', 'eeeee', 'eeeeeeeeeeeeeeeeee', 'eeeeeeeeeeeeeeeee'])); // 0
+console.log(allConstruct('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef', ['e', 'ee', 'eeeee', 'eeeeeeeeeeeeeeeeee', 'eeeeeeeeeeeeeeeee']));
 endTime = performance.now();
 console.log(`Call to canConstruct took ${endTime - startTime} milliseconds`);
